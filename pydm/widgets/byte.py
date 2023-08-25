@@ -64,7 +64,464 @@ class PyDMBitIndicator(QWidget):
         fm = QFontMetrics(self.font())
         return QSize(fm.height(), fm.height())
 
+class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
+    """
+    Widget for graphical representation of bits from an integer number
+    with support for Channels and more from PyDM
 
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for the Label
+    init_channel : str, optional
+        The channel to be used by the widget.
+    """
+    def __init__(self, parent: Optional[QWidget] = None, init_channel=None):
+        QWidget.__init__(self, parent)
+        PyDMWidget.__init__(self, init_channel=init_channel)
+        self._state_colors = [QColor(Qt.black)] * 16
+        self._painter = QPainter()
+        self._brush = QBrush(Qt.SolidPattern)
+        self._pen = QPen(Qt.SolidLine)
+        self.circle = True
+        self._curr_state = 0
+
+    '''
+    def connection_changed(self, connected: bool) -> None:
+        """
+        Callback invoked when the connection state of the Channel is changed.
+        This callback acts on the connection state to enable/disable the widget
+        and also trigger the change on alarm severity to ALARM_DISCONNECTED.
+
+        Parameters
+        ----------
+        connected : bool
+            When this value is False the channel is disconnected, True otherwise.
+        """
+        super(PyDMByteIndicator, self).connection_changed(connected)
+    '''
+    def value_changed(self, new_val: int) -> None:
+        """
+        Callback invoked when the Channel value is changed.
+
+        Parameters
+        ----------
+        new_val : int
+            The new value from the channel.
+        """
+        print("updating curr state: ", new_val)
+        super(PyDMMultiStateLEDIndicator, self).value_changed(new_val)
+        try:
+            int(new_val)
+            if new_val < 16: # 15 is max since we start counting from 0
+                self._curr_state = new_val
+                self.update()
+        except:
+            pass
+
+    @Property(QColor)
+    def state0Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[0]
+
+    @state0Color.setter
+    def state0Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[0]:
+            self._state_colors[0] = new_color
+            
+    @Property(QColor)
+    def state1Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[1]
+
+    @state1Color.setter
+    def state1Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[1]:
+            self._state_colors[1] = new_color
+            
+    @Property(QColor)
+    def state2Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[2]
+
+    @state2Color.setter
+    def state2Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[2]:
+            self._state_colors[2] = new_color
+
+    @Property(QColor)
+    def state3Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[3]
+
+    @state3Color.setter
+    def state3Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[3]:
+            self._state_colors[3] = new_color
+                        
+    @Property(QColor)
+    def state4Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[4]
+
+    @state4Color.setter
+    def state4Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[4]:
+            self._state_colors[4] = new_color
+            
+    @Property(QColor)
+    def state5Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[5]
+
+    @state5Color.setter
+    def state5Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[5]:
+            self._state_colors[5] = new_color
+
+    @Property(QColor)
+    def state6Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[6]
+
+    @state6Color.setter
+    def state6Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[6]:
+            self._state_colors[6] = new_color
+                      
+    @Property(QColor)
+    def state7Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[7]
+
+    @state7Color.setter
+    def state7Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[7]:
+            self._state_colors[7] = new_color
+            
+    @Property(QColor)
+    def state8Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[8]
+
+    @state8Color.setter
+    def state8Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[8]:
+            self._state_colors[8] = new_color
+
+    @Property(QColor)
+    def state9Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[9]
+
+    @state9Color.setter
+    def state9Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[9]:
+            self._state_colors[9] = new_color
+
+    @Property(QColor)
+    def state10Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[10]
+
+    @state10Color.setter
+    def state10Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[10]:
+            self._state_colors[10] = new_color
+                        
+    @Property(QColor)
+    def state11Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[11]
+
+    @state11Color.setter
+    def state11Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[11]:
+            self._state_colors[11] = new_color
+            
+    @Property(QColor)
+    def state12Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[12]
+
+    @state12Color.setter
+    def state12Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[12]:
+            self._state_colors[12] = new_color
+
+    @Property(QColor)
+    def state13Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[13]
+
+    @state13Color.setter
+    def state13Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[13]:
+            self._state_colors[13] = new_color
+            
+    @Property(QColor)
+    def state14Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[14]
+
+    @state14Color.setter
+    def state14Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[14]:
+            self._state_colors[14] = new_color
+    
+    @Property(QColor)
+    def state15Color(self) -> QColor:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._state_colors[15]
+
+    @state15Color.setter
+    def state15Color(self, new_color: QColor) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_color != self._state_colors[15]:
+            self._state_colors[15] = new_color
+                
+            
+    def paintEvent(self, event: QPaintEvent) -> None:
+        """
+        Paint events are sent to widgets that need to update themselves,
+        for instance when part of a widget is exposed because a covering
+        widget was moved.
+
+        At PyDMDrawing this method handles the alarm painting with parameters
+        from the stylesheet, configures the brush, pen and calls ```draw_item```
+        so the specifics can be performed for each of the drawing classes.
+
+        Parameters
+        ----------
+        event : QPaintEvent
+        """
+        #super(PyDMMultiStateLEDIndicator, self).paintEvent(QPaintEvent)
+
+        print("drawing curr state: ", self._curr_state)
+        self._painter.begin(self)
+        opt = QStyleOption()
+        opt.initFrom(self)
+        self.style().drawPrimitive(QStyle.PE_Widget, opt, self._painter, self)
+        self._painter.setRenderHint(QPainter.Antialiasing)
+        self._painter.setBrush(QBrush(self._state_colors[self._curr_state]))
+        self._painter.setPen(QPen(Qt.red))
+        if self.circle:
+            rect = self.rect()
+            w = rect.width()
+            h = rect.height()
+            r = int(min(w, h) / 2.0 - 2.0 * max(self._pen.widthF(), 1.0))
+            self._painter.drawEllipse(QPoint(w // 2, h // 2), r, r)
+        else:
+            self._painter.drawRect(self.rect())
+        self._painter.end()
+        
 class PyDMByteIndicator(QWidget, PyDMWidget):
     """
     Widget for graphical representation of bits from an integer number

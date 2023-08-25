@@ -4,6 +4,7 @@ import os
 from ..utilities.iconfont import IconFont
 from .archiver_time_plot import PyDMArchiverTimePlot
 from .byte import PyDMByteIndicator
+from .byte import PyDMMultiStateLEDIndicator
 from .checkbox import PyDMCheckbox
 from .datetime import PyDMDateTimeEdit, PyDMDateTimeLabel
 from .drawing import (PyDMDrawingArc, PyDMDrawingChord, PyDMDrawingCircle,
@@ -109,6 +110,11 @@ PyDMByteIndicatorPlugin = qtplugin_factory(PyDMByteIndicator,
                                            extensions=BASE_EXTENSIONS,
                                            icon=ifont.icon("ellipsis-v"))
 
+# Byte plugin
+PyDMMultiStateLEDIndicatorPlugin = qtplugin_factory(PyDMMultiStateLEDIndicator,
+                                           group=WidgetCategory.DISPLAY,
+                                           extensions=BASE_EXTENSIONS,
+                                           icon=ifont.icon("ellipsis-v"))
 # Checkbox plugin
 PyDMCheckboxPlugin = qtplugin_factory(PyDMCheckbox, group=WidgetCategory.INPUT,
                                       extensions=BASE_EXTENSIONS,
