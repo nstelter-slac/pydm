@@ -3,8 +3,8 @@ import pytest
 import json
 import logging
 
-from qtpy.QtCore import Qt
-from qtpy.QtWidgets import QMenu
+from qtpy.QtCore import Qt, QEvent
+from qtpy.QtWidgets import QMenu, QApplication
 from qtpy.QtGui import QClipboard, QColor, QMouseEvent
 from ..conftest import ConnectionSignals
 from ...utilities import is_pydm_app
@@ -641,6 +641,8 @@ def test_pydmwritable_check_enable_state(qtbot, channel_address,
 
     actual_tooltip = pydm_lineedit.toolTip()
     if is_channel_valid(channel_address):
+        enterEvent = QEvent(QEvent.Enter)
+        QApplication.postEvent(pydm_lineedit, enterEvent)
         if not pydm_lineedit._connected:
             assert "PV is disconnected." in actual_tooltip
         elif not write_access or disable_put:
