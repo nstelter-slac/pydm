@@ -629,20 +629,24 @@ def test_pydmwritable_check_enable_state(qtbot, channel_address,
     qtbot.addWidget(pydm_lineedit)
 
     pydm_lineedit.channel = channel_address
+
     pydm_lineedit._connected = connected
     pydm_lineedit._write_access = write_access
     pydm_lineedit._disable_put = disable_put
+    #assert 1 == 2
 
     data_plugins.set_read_only(is_app_read_only)
 
     original_tooltip = "Original Tooltip"
     pydm_lineedit.setToolTip(original_tooltip)
     pydm_lineedit.check_enable_state()
-
     actual_tooltip = pydm_lineedit.toolTip()
     if is_channel_valid(channel_address):
         enterEvent = QEvent(QEvent.Enter)
         QApplication.postEvent(pydm_lineedit, enterEvent)
+        actual_tooltip = pydm_lineedit.toolTip()
+        print ("!!actual tooltip: ", actual_tooltip)
+        #assert 1 == 2
         if not pydm_lineedit._connected:
             assert "PV is disconnected." in actual_tooltip
         elif not write_access or disable_put:

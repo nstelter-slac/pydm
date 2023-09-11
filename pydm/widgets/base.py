@@ -185,10 +185,14 @@ class PyDMPrimitiveWidget(object):
         """
         # Override the eventFilter to capture all middle mouse button events,
         # and show a tooltip if needed.
+        #print ("!!start of root eventfilter")        
+ 
         if event.type() == QEvent.MouseButtonPress:
             if event.button() == Qt.MiddleButton:
                 self.show_address_tooltip(event)
+                #print ("!!end of root eventfilter")        
                 return True
+        #print ("!!end of root eventfilter")        
         return False
 
     def show_address_tooltip(self, event):
@@ -1174,6 +1178,7 @@ class PyDMWidget(PyDMPrimitiveWidget, new_properties=_positionRuleProperties):
 
                 if not self._connected:
                     value_of_attribute = None
+
                 tool_tip_substrings[index][0] = str(value_of_attribute)
 
         tip_with_attribute_info = new_tip
@@ -1261,9 +1266,11 @@ class PyDMWidget(PyDMPrimitiveWidget, new_properties=_positionRuleProperties):
         This method also disables the widget and add a Tool Tip
         with the reason why it is disabled.
         """
+        print ("!!starting subclass check enable state!")
         status = self._connected
         tooltip = self.toolTip()
         if not status and tooltip:
+            print ("!!Setting disconnected state msg!!!")
             if tooltip != '':
                 tooltip += '\n'
             tooltip += "PV is disconnected."
@@ -1272,6 +1279,9 @@ class PyDMWidget(PyDMPrimitiveWidget, new_properties=_positionRuleProperties):
 
         self.setToolTip(tooltip)
         self.setEnabled(status)
+        print ("!!leaving subclass check enable state!")
+
+
 
     def get_ctrl_limits(self):
         """
@@ -1394,6 +1404,7 @@ class PyDMWritableWidget(PyDMWidget):
             True to stop the event from being handled further; otherwise
             return false.
         """
+        #print ("!!start subclass eventFilter")
         channel = getattr(self, 'channel', None)
 
         if is_channel_valid(channel):
@@ -1404,9 +1415,11 @@ class PyDMWritableWidget(PyDMWidget):
 
             if event.type() == QEvent.Enter and not status:
                 QApplication.setOverrideCursor(QCursor(Qt.ForbiddenCursor))
+                self.check_enable_state()
 
-        self.check_enable_state()
+        #print ("!!end subclass eventFilter")
         return PyDMWidget.eventFilter(self, obj, event)
+        
 
     @Property(bool)
     def monitorDisp(self) -> bool:
@@ -1494,7 +1507,7 @@ class PyDMWritableWidget(PyDMWidget):
         Checks whether or not the widget should be disabled.
         This method also disables the widget and adds a tool tip with the reason why it is disabled.
         """
-
+        print ("!!starting subclass check enable state!")
         status = self._write_access and self._connected and not self._disable_put
         tooltip = self.toolTip()
         if not self._connected and tooltip:
@@ -1504,6 +1517,7 @@ class PyDMWritableWidget(PyDMWidget):
             tooltip += '\n'
             tooltip += self.get_address()
         elif not self._write_access:
+            print ("!!setting no write access")
             if tooltip != '':
                 tooltip += '\n'
             if data_plugins.is_read_only():
@@ -1511,9 +1525,11 @@ class PyDMWritableWidget(PyDMWidget):
             else:
                 tooltip += "Access denied by Channel Access Security."
         elif self._disable_put:
+            print ("!!Setting disabled put!")
             if tooltip != '':
                 tooltip += '\n'
             tooltip += 'Access denied by DISP field'
 
         self.setToolTip(tooltip)
         self.setEnabled(status)
+        print ("!!leaving subclass check enable state!")
