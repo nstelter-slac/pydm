@@ -734,7 +734,11 @@ class PyDMWidget(PyDMPrimitiveWidget, new_properties=_positionRuleProperties):
         connected : int
             When this value is 0 the channel is disconnected, 1 otherwise.
         """
+        print ("!!inside connection_changed setting to: ", connected )
         self._connected = connected
+        status = self._connected
+        self.setEnabled(status)
+
         if not connected:
             self.alarmSeverityChanged(self.ALARM_DISCONNECTED)
         else:
@@ -878,6 +882,7 @@ class PyDMWidget(PyDMPrimitiveWidget, new_properties=_positionRuleProperties):
         connected : bool
         """
         # false = disconnected, true = connected
+        print ("!!inside connectionStateChanged, setting: ", connected)
         self.connection_changed(connected)
 
     @Slot(int)
@@ -1266,11 +1271,11 @@ class PyDMWidget(PyDMPrimitiveWidget, new_properties=_positionRuleProperties):
         This method also disables the widget and add a Tool Tip
         with the reason why it is disabled.
         """
-        print ("!!starting subclass check enable state!")
+        #print ("!!starting subclass check enable state!")
         status = self._connected
         tooltip = self.toolTip()
         if not status and tooltip:
-            print ("!!Setting disconnected state msg!!!")
+            #print ("!!Setting disconnected state msg!!!")
             if tooltip != '':
                 tooltip += '\n'
             tooltip += "PV is disconnected."
@@ -1279,7 +1284,7 @@ class PyDMWidget(PyDMPrimitiveWidget, new_properties=_positionRuleProperties):
 
         self.setToolTip(tooltip)
         self.setEnabled(status)
-        print ("!!leaving subclass check enable state!")
+        #print ("!!leaving subclass check enable state!")
 
 
 
@@ -1404,7 +1409,7 @@ class PyDMWritableWidget(PyDMWidget):
             True to stop the event from being handled further; otherwise
             return false.
         """
-        #print ("!!start subclass eventFilter")
+        print ("!!start subclass eventFilter")
         channel = getattr(self, 'channel', None)
 
         if is_channel_valid(channel):
@@ -1417,7 +1422,7 @@ class PyDMWritableWidget(PyDMWidget):
                 QApplication.setOverrideCursor(QCursor(Qt.ForbiddenCursor))
                 self.check_enable_state()
 
-        #print ("!!end subclass eventFilter")
+        print ("!!end subclass eventFilter")
         return PyDMWidget.eventFilter(self, obj, event)
         
 
@@ -1475,6 +1480,8 @@ class PyDMWritableWidget(PyDMWidget):
     def disp_value_changed(self, new_disp_value: int) -> None:
         """ Callback function to receive changes to the DISP field of the monitored channel """
         self._disable_put = new_disp_value
+        status = self._write_access and self._connected and not self._disable_put
+        self.setEnabled(status)
 
     def write_access_changed(self, new_write_access):
         """
@@ -1488,6 +1495,8 @@ class PyDMWritableWidget(PyDMWidget):
             True if write operations to the channel are allowed.
         """
         self._write_access = new_write_access
+        status = self._write_access and self._connected and not self._disable_put
+        self.setEnabled(status)
 
     @Slot(bool)
     def writeAccessChanged(self, write_access):
@@ -1507,10 +1516,16 @@ class PyDMWritableWidget(PyDMWidget):
         Checks whether or not the widget should be disabled.
         This method also disables the widget and adds a tool tip with the reason why it is disabled.
         """
-        print ("!!starting subclass check enable state!")
+        #print ("!!starting subclass check enable state!")
         status = self._write_access and self._connected and not self._disable_put
         tooltip = self.toolTip()
+
+        print ("!!self._connected: ", self._connected)
+        #print ("!!tooltip: ", tooltip)
+        #print ("!!self._write_access: ", self._write_access)
+        #print ("!!data_plugins.is_read_only(): ", data_plugins.is_read_only())
         if not self._connected and tooltip:
+            print ("!!Setting disabled message!!")
             if tooltip != '':
                 tooltip += '\n'
             tooltip += "PV is disconnected."
@@ -1521,8 +1536,10 @@ class PyDMWritableWidget(PyDMWidget):
             if tooltip != '':
                 tooltip += '\n'
             if data_plugins.is_read_only():
+                print ("!!A")
                 tooltip += "Running PyDM on Read-Only mode."
             else:
+                print ("!!B")
                 tooltip += "Access denied by Channel Access Security."
         elif self._disable_put:
             print ("!!Setting disabled put!")

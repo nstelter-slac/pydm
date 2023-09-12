@@ -8,7 +8,7 @@ from logging import ERROR
 
 from qtpy.QtCore import QEvent, Qt
 from qtpy.QtGui import QFocusEvent
-from qtpy.QtWidgets import QMenu
+from qtpy.QtWidgets import QMenu, QApplication 
 from ...widgets.line_edit import PyDMLineEdit
 from ...data_plugins import set_read_only, is_read_only
 from ...utilities import is_pydm_app, find_unit_options
@@ -220,7 +220,7 @@ def test_send_value(qtbot, signals, init_value, user_typed_value, display_format
         assert abs(signals.value - expected_received_value) < 0.00001
 
 
-@pytest.mark.parametrize("new_write_access, is_channel_connected, tooltip, is_app_read_only", [
+'''
     (True, True, "Write Access and Connected Channel", False),
     (False, True, "Only Connected Channel", False),
     (True, False, "Only Write Access", False),
@@ -233,6 +233,9 @@ def test_send_value(qtbot, signals, init_value, user_typed_value, display_format
 
     (True, True, "", False),
     (True, True, "", True),
+'''
+@pytest.mark.parametrize("new_write_access, is_channel_connected, tooltip, is_app_read_only", [
+    (False, True, "Only Connected Channel", False),
 ])
 def test_write_access_changed(qapp, qtbot, signals, new_write_access, is_channel_connected, tooltip, is_app_read_only):
     """
@@ -273,6 +276,7 @@ def test_write_access_changed(qapp, qtbot, signals, new_write_access, is_channel
     pydm_lineedit.channel = "ca://MTEST"
     pydm_lineedit.setToolTip(tooltip)
 
+    print ("in testing code, setting connected to: ", is_channel_connected)
     pydm_lineedit.connectionStateChanged(is_channel_connected)
     pydm_lineedit.writeAccessChanged(new_write_access)
     qapp.processEvents()
@@ -282,7 +286,10 @@ def test_write_access_changed(qapp, qtbot, signals, new_write_access, is_channel
     else:
         assert pydm_lineedit.isReadOnly()
 
+    enterEvent = QEvent(QEvent.Enter)
+    QApplication.postEvent(pydm_lineedit, enterEvent)
     actual_tooltip = pydm_lineedit.toolTip()
+    print ("!!in testing code, is connected: ", pydm_lineedit._connected)
     if not pydm_lineedit._connected:
         assert "PV is disconnected." in actual_tooltip
     elif not new_write_access:

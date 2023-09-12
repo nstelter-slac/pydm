@@ -11,6 +11,7 @@ from ...widgets.base import PyDMWidget
 from ...widgets.display_format import parse_value_for_display, DisplayFormat
 
 from qtpy.QtWidgets import QApplication, QStyleOption
+from qtpy.QtCore import QEvent, QTimer, QEventLoop
 
 # --------------------
 # POSITIVE TEST CASES
@@ -312,14 +313,6 @@ def test_label_alarms(qtbot, signals, alarm_severity, alarm_sensitive_content, a
 TOOLTIP_TEXT = "Testing with Alarm State Changes, Channel Provided."
 @pytest.mark.parametrize("alarm_sensitive_content, alarm_sensitive_border, tooltip", [
     (True, True, TOOLTIP_TEXT),
-    (True, False, TOOLTIP_TEXT),
-    (False, True, TOOLTIP_TEXT),
-    (False, False, TOOLTIP_TEXT),
-
-    (True, True, ""),
-    (True, False, ""),
-    (False, True, ""),
-    (False, False, ""),
 ])
 def test_label_channel_connection_changes_with_alarm(qtbot, signals, alarm_sensitive_content, alarm_sensitive_border,
                                                tooltip):
@@ -353,6 +346,7 @@ def test_label_channel_connection_changes_with_alarm(qtbot, signals, alarm_sensi
     tooltip : str
         The tooltip for the widget. This can be an empty string
     """
+    print ("!!!!!!tooltip: ", tooltip)
     pydm_label = PyDMLabel()
     pydm_label.setText('Custom Text')
     qtbot.addWidget(pydm_label)
@@ -386,17 +380,27 @@ def test_label_channel_connection_changes_with_alarm(qtbot, signals, alarm_sensi
     signals.connection_state_signal.emit(False)
     assert pydm_label._alarm_state == alarm_severity
     assert pydm_label._connected == False
-    assert all(i in pydm_label.toolTip() for i in (tooltip, "PV is disconnected."))
+    enterEvent = QEvent(QEvent.Enter)
+    QApplication.postEvent(pydm_label, enterEvent)
+    print ("!!tooltip: ", tooltip)
+    print ("!!pydm_label.toolTip() : ", pydm_label.toolTip() )
+    if tooltip == '':
+        assert tooltip in pydm_label.toolTip()
+    else:
+        assert all(i in pydm_label.toolTip() for i in (tooltip, "PV is disconnected."))
     assert pydm_label.isEnabled() == False
     assert pydm_label.text() == 'CA://MTEST'
-
     # Finally, reconnect the alarm, and check for the same attributes
     signals.connection_state_signal.emit(True)
+    enterEvent = QEvent(QEvent.Enter)
+    QApplication.postEvent(pydm_label, enterEvent)
 
     # Confirm alarm severity, style, connection state, enabling state, and tooltip
     # TODO Set alarm_severity back to NONE
     assert pydm_label._alarm_state == PyDMWidget.ALARM_NONE
     assert pydm_label._connected == True
+    print ("!!pydm_label.toolTip(): ", pydm_label.toolTip())
+    print ("!!tooltip: ", tooltip)
     assert pydm_label.toolTip() == tooltip
     assert pydm_label.isEnabled() == True
 

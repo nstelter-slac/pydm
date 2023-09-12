@@ -47,7 +47,7 @@
     <bool>true</bool>
    </property>
    <property name="PyDMToolTip" stdset="0">
-    <string>Hello: $(pv_value)</string>
+    <string/>
    </property>
    <property name="channel" stdset="0">
     <string>ca://MTEST:Float</string>
