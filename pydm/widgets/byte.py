@@ -80,12 +80,12 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
         QWidget.__init__(self, parent)
         PyDMWidget.__init__(self, init_channel=init_channel)
         self._state_colors = [QColor(Qt.black)] * 16
+        self._additional_channels = [''] * 3
         self._painter = QPainter()
         self._brush = QBrush(Qt.SolidPattern)
         self._pen = QPen(Qt.SolidLine)
         self.circle = True
         self._curr_state = 0
-
     '''
     def connection_changed(self, connected: bool) -> None:
         """
@@ -118,6 +118,77 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
                 self.update()
         except:
             pass
+
+    @Property(str)
+    def channel2(self) -> str:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._additional_channels[0]
+
+    @channel2.setter
+    def channel2(self, new_channel: str) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_channel != self._additional_channels[0]:
+            self._state_colors[0] = new_channel
+
+
+    @Property(str)
+    def channel3(self) -> str:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._additional_channels[1]
+
+    @channel3.setter
+    def channel3(self, new_channel: str) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_channel != self._additional_channels[1]:
+            self._state_colors[1] = new_channel
+
+
+    @Property(str)
+    def channel4(self) -> str:
+        """
+        The color for a bit in the 'off' state.
+
+        Returns
+        -------
+        QColor
+        """
+        return self._additional_channels[2]
+
+    @channel4.setter
+    def channel4(self, new_channel: str) -> None:
+        """
+        The color for a bit in the 'off' state.
+
+        Parameters
+        ----------
+        new_color : QColor
+        """
+        if new_channel != self._additional_channels[2]:
+            self._state_colors[2] = new_channel
 
     @Property(QColor)
     def state0Color(self) -> QColor:
@@ -504,7 +575,7 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
         """
         #super(PyDMMultiStateLEDIndicator, self).paintEvent(QPaintEvent)
 
-        print("drawing curr state: ", self._curr_state)
+        #print("drawing curr state: ", self._curr_state)
         self._painter.begin(self)
         opt = QStyleOption()
         opt.initFrom(self)
