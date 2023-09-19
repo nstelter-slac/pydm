@@ -301,15 +301,6 @@ class MultiStateColorPicker(_PropertyHelper, QtWidgets.QDialog):
 
         button_layout = QtWidgets.QHBoxLayout()
 
-        save_button = QtWidgets.QPushButton("Save")
-        cancel_button = QtWidgets.QPushButton("Cancel")
-
-        save_button.clicked.connect(self.accept)
-        cancel_button.clicked.connect(self.reject)
-
-        button_layout.addWidget(cancel_button)
-        button_layout.addWidget(save_button)
-
         layout.addLayout(button_layout, 4, 0, 1, 4)
 
     def setButtonToSelectedColor(self):
@@ -351,21 +342,13 @@ class MultiStateConnectionSetup(_PropertyHelper, QtWidgets.QDialog):
         self.connection_widgets = []
         self._update_connection_widgets()
 
-        button_box = QtWidgets.QDialogButtonBox(QtWidgets.QDialogButtonBox.Ok | QtWidgets.QDialogButtonBox.Cancel, self)
-
-        button_box.accepted.connect(self.accept)
-        button_box.rejected.connect(self.reject)
-
-        layout.addWidget(button_box)
-
     def _update_connection_widgets(self):
         currSelectedConnectionMode = self.connectionModeSelector.currentText()
         count = 1 if "1 connection" in currSelectedConnectionMode else 4
 
         while len(self.connection_widgets) < count:
-            label = QtWidgets.QLabel(f"Bit {len(self.connection_widgets) + 1}:", self)
+            label = QtWidgets.QLabel(f"Channel {len(self.connection_widgets) + 1}:", self)
             text_edit = QtWidgets.QLineEdit(self)
-            text_edit.setText("Enter channel...")
             text_edit.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
             self.connection_widgets.append((label, text_edit))
             self.connection_grid.addWidget(label, 0, len(self.connection_widgets) * 2)
@@ -473,18 +456,19 @@ class BasicSettingsEditor(QtWidgets.QDialog):
 
     def _create_helper_widgets(self, settings_form: QtWidgets.QFormLayout):
         other_attrs = []
-        props = sorted(get_qt_properties(type(self.widget)))
-        print ("!!qt properties: ", props)
         for attr in sorted(get_qt_properties(type(self.widget))):
             if attr not in self._common_attributes_ and attr not in other_attrs:
                 other_attrs.append(attr)
 
+        print ("!\nattributes ", list(self._common_attributes_) + other_attrs)
         for attr in list(self._common_attributes_) + other_attrs:
+            print ("\ncurr attrib: ", attr)
             prop = getattr(type(self.widget), attr, None)
             if prop is None:
                 continue
 
             prop_type = getattr(prop, "type", None)
+            print ("!!prop: ", prop, ", prop type: ", prop_type)
             helper_widget_cls = self._common_attributes_.get(
                 attr,
                 self._type_to_widget_.get(prop_type, None)
@@ -496,7 +480,7 @@ class BasicSettingsEditor(QtWidgets.QDialog):
                     property_widget=self.widget,
                     property_name=attr,
                 )
-                print ("attr: ", attr, ", and helper_widget is: ", prop)
+                #print ("attr: ", attr, ", and helper_widstate0Colorget is type: ", type(prop))
 
                 #if isinstance(helper_widget, ColorPickerDialog):
                    #helper_widget.closed.connect(self.closingColorEditorWindow) 
