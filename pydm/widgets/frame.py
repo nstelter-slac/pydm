@@ -1,7 +1,7 @@
 from qtpy.QtWidgets import QFrame
 from qtpy.QtCore import Property
 from .base import PyDMWidget
-
+from ..utilities import macro
 
 class PyDMFrame(QFrame, PyDMWidget):
     """
@@ -19,10 +19,41 @@ class PyDMFrame(QFrame, PyDMWidget):
     def __init__(self, parent=None, init_channel=None):
         QFrame.__init__(self, parent)
         PyDMWidget.__init__(self, init_channel=init_channel)
-
+        self._macros = None
         self._disable_on_disconnect = False
         self.alarmSensitiveBorder = False
 
+    @Property(str)
+    def macros(self):
+        """
+        JSON-formatted string containing macro variables to pass to the embedded file.
+
+        Returns
+        -------
+        str
+        """
+        if self._macros is None:
+            return ""
+        return self._macros
+
+    @macros.setter
+    def macros(self, new_macros):
+        """
+        JSON-formatted string containing macro variables to pass to the embedded file.
+
+        .. warning::
+        If the macros property is not defined before the filename property,
+        The widget will not have any macros defined when it loads the embedded file.
+        This behavior will be fixed soon.
+
+        Parameters
+        ----------
+        new_macros : str
+        """
+        new_macros = str(new_macros)
+        if new_macros != self._macros:
+            self._macros = new_macros
+           
     @Property(bool)
     def disableOnDisconnect(self):
         """
