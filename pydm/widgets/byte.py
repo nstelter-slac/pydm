@@ -109,13 +109,46 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
             pass
 
     @Property(bool)
-    def fourChannelInput(self):
+    def enableFourChannelInputs(self):
         return self._enable_four_channel_input
 
-    @fourChannelInput.setter
-    def fourChannelInput(self, enable_four_channel_input: bool) -> None:
-        if enable_four_channel_input != self.fourChannelInput:
+    @enableFourChannelInputs.setter
+    def enableFourChannelInputs(self, enable_four_channel_input: bool) -> None:
+        if enable_four_channel_input != self._enable_four_channel_input:
             self._enable_four_channel_input = enable_four_channel_input
+            if self._enable_four_channel_input:
+                # ensure all 4 channels are set
+                if "" in self._additional_channels:
+                    return
+                for currChannel in self._additional_channels:
+                    self.set_channel(currChannel)
+
+    @Property(str)
+    def additionalChannelOne(self):
+        return self._additional_channels[0]
+
+    @additionalChannelOne.setter
+    def additionalChannelOne(self, channel_name: bool) -> None:
+        if channel_name != self._additional_channels[0]:
+            self._additional_channels[0] = channel_name
+
+    @Property(str)
+    def additionalChannelTwo(self):
+        return self._additional_channels[1]
+
+    @additionalChannelTwo.setter
+    def additionalChannelTwo(self, channel_name: bool) -> None:
+        if channel_name != self._additional_channels[1]:
+            self._additional_channels[1] = channel_name
+
+    @Property(str)
+    def additionalChannelThree(self):
+        return self._additional_channels[2]
+
+    @additionalChannelThree.setter
+    def additionalChannelThree(self, channel_name: bool) -> None:
+        if channel_name != self._additional_channels[2]:
+            self._additional_channels[2] = channel_name
 
     # color state setters/getters
     @Property(QColor)
