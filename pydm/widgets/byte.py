@@ -119,7 +119,7 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
 
     # color state setters/getters
     @Property(QColor)
-    def state0Color(self) -> QColor:
+    def state00Color(self) -> QColor:
         """
         The color for when widget is in state 0
         Returns
@@ -128,8 +128,8 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
         """
         return self._state_colors[0]
 
-    @state0Color.setter
-    def state0Color(self, state_color: QColor) -> None:
+    @state00Color.setter
+    def state00Color(self, state_color: QColor) -> None:
         """
         The color for when widget is in state 0
         Parameters
@@ -140,7 +140,7 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
             self._state_colors[0] = state_color
 
     @Property(QColor)
-    def state1Color(self) -> QColor:
+    def state01Color(self) -> QColor:
         """
         The color for when widget is in state 1
         Returns
@@ -149,8 +149,8 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
         """
         return self._state_colors[1]
 
-    @state1Color.setter
-    def state1Color(self, state_color: QColor) -> None:
+    @state01Color.setter
+    def state01Color(self, state_color: QColor) -> None:
         """
         The color for when widget is in state 1
         Parameters
@@ -161,7 +161,7 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
             self._state_colors[1] = state_color
 
     @Property(QColor)
-    def state2Color(self) -> QColor:
+    def state02Color(self) -> QColor:
         """
         The color for when widget is in state 2
         Returns
@@ -170,8 +170,8 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
         """
         return self._state_colors[2]
 
-    @state2Color.setter
-    def state2Color(self, new_color: QColor) -> None:
+    @state02Color.setter
+    def state02Color(self, new_color: QColor) -> None:
         """
         The color for when widget is in state 2
         Parameters
@@ -182,7 +182,7 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
             self._state_colors[2] = new_color
 
     @Property(QColor)
-    def state3Color(self) -> QColor:
+    def state03Color(self) -> QColor:
         """
         The color for when widget is in state 3
         Returns
@@ -191,8 +191,8 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
         """
         return self._state_colors[3]
 
-    @state3Color.setter
-    def state3Color(self, new_color: QColor) -> None:
+    @state03Color.setter
+    def state03Color(self, new_color: QColor) -> None:
         """
         The color for when widget is in state 3
         Parameters
@@ -203,7 +203,7 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
             self._state_colors[3] = new_color
 
     @Property(QColor)
-    def state4Color(self) -> QColor:
+    def state04Color(self) -> QColor:
         """
         The color for when widget is in state 4
         Returns
@@ -212,8 +212,8 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
         """
         return self._state_colors[4]
 
-    @state4Color.setter
-    def state4Color(self, new_color: QColor) -> None:
+    @state04Color.setter
+    def state04Color(self, new_color: QColor) -> None:
         """
         The color for when widget is in state 4
         Parameters
@@ -224,7 +224,7 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
             self._state_colors[4] = new_color
 
     @Property(QColor)
-    def state5Color(self) -> QColor:
+    def state05Color(self) -> QColor:
         """
         The color for when widget is in state 5
         Returns
@@ -233,8 +233,8 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
         """
         return self._state_colors[5]
 
-    @state5Color.setter
-    def state5Color(self, new_color: QColor) -> None:
+    @state05Color.setter
+    def state05Color(self, new_color: QColor) -> None:
         """
         The color for when widget is in state 5
         Parameters
@@ -245,7 +245,7 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
             self._state_colors[5] = new_color
 
     @Property(QColor)
-    def state6Color(self) -> QColor:
+    def state06Color(self) -> QColor:
         """
         The color for when widget is in state 6
         Returns
@@ -254,8 +254,8 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
         """
         return self._state_colors[6]
 
-    @state6Color.setter
-    def state6Color(self, new_color: QColor) -> None:
+    @state06Color.setter
+    def state06Color(self, new_color: QColor) -> None:
         """
         The color for when widget is in state 6
         Parameters
@@ -266,7 +266,7 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
             self._state_colors[6] = new_color
 
     @Property(QColor)
-    def state7Color(self) -> QColor:
+    def state07Color(self) -> QColor:
         """
         The color for when widget is in state 7
         Returns
@@ -275,8 +275,8 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
         """
         return self._state_colors[7]
 
-    @state7Color.setter
-    def state7Color(self, new_color: QColor) -> None:
+    @state07Color.setter
+    def state07Color(self, new_color: QColor) -> None:
         """
         The color for when widget is in state 7
         Parameters
@@ -287,7 +287,7 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
             self._state_colors[7] = new_color
 
     @Property(QColor)
-    def state8Color(self) -> QColor:
+    def state08Color(self) -> QColor:
         """
         The color for when widget is in state 8
         Returns
@@ -296,8 +296,8 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
         """
         return self._state_colors[8]
 
-    @state8Color.setter
-    def state8Color(self, new_color: QColor) -> None:
+    @state08Color.setter
+    def state08Color(self, new_color: QColor) -> None:
         """
         The color for when widget is in state 8
         Parameters
@@ -308,7 +308,7 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
             self._state_colors[8] = new_color
 
     @Property(QColor)
-    def state9Color(self) -> QColor:
+    def state09Color(self) -> QColor:
         """
         The color for when widget is in state 9
         Returns
@@ -317,8 +317,8 @@ class PyDMMultiStateLEDIndicator(QWidget, PyDMWidget):
         """
         return self._state_colors[9]
 
-    @state9Color.setter
-    def state9Color(self, new_color: QColor) -> None:
+    @state09Color.setter
+    def state09Color(self, new_color: QColor) -> None:
         """
         The color for when widget is in state 9
         Parameters

@@ -4,6 +4,7 @@ import re
 from typing import Any, List, Optional
 
 from qtpy import QtCore, QtDesigner, QtWidgets
+from qtpy.QtGui import QColor
 
 from ..utilities import copy_to_clipboard, get_clipboard_text
 from ..utilities.macro import parse_macro_string
@@ -15,6 +16,7 @@ def update_property_for_widget(widget: QtWidgets.QWidget, name: str, value):
     """Update a Property for the given widget in the designer."""
     formWindow = QtDesigner.QDesignerFormWindowInterface.findFormWindow(widget)
     logger.info("Updating %s.%s = %s", widget.objectName(), name, value)
+    print("Updating %s.%s = %s", widget.objectName(), name, value)
     if formWindow:
         formWindow.cursor().setProperty(name, value)
     else:
@@ -284,6 +286,31 @@ class PropertyStringList(_PropertyHelper, StringListTable):
         return self.values
 
 
+class ColorPicker(_PropertyHelper, QtWidgets.QPushButton):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._chosen_color = None
+        self.setAutoDefault(False)
+        self.setDefault(False)
+        self.clicked.connect(self.setButtonToSelectedColor)
+        self.setStyleSheet("background-color: white;")
+        self.setText("Color")
+
+    def set_value_from_widget(self, widget, attr, value):
+        self._chosen_color = value
+        self.setStyleSheet(f"background-color: {self._chosen_color.name()};")
+
+    def setButtonToSelectedColor(self):
+        color_widget = self.sender()
+        self._chosen_color = QtWidgets.QColorDialog.getColor()
+        if self._chosen_color.isValid():
+            color_widget.setStyleSheet(f"background-color: {self._chosen_color.name()};")
+
+    @property
+    def saved_value(self) -> QColor:
+        return self._chosen_color
+
+
 def get_qt_properties(cls):
     """Yields all QMetaProperty instances from a given class."""
     meta_obj = cls.staticMetaObject
@@ -321,6 +348,7 @@ class BasicSettingsEditor(QtWidgets.QDialog):
         int: PropertyIntSpinBox,
         bool: PropertyCheckbox,
         "QStringList": PropertyStringList,
+        QColor: ColorPicker,
     }
 
     def __init__(self, widget, parent=None):
