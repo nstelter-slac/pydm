@@ -537,7 +537,7 @@ class PyDMShellCommand(QPushButton, PyDMWidget):
 
                 if self._redirect_output:
                     stdout = None
-                self.process = subprocess.Popen(args, stdout=stdout, stderr=subprocess.PIPE, env=env_var)
+                self.process = subprocess.Popen(cmd, stdout=stdout, stderr=subprocess.PIPE, env=env_var, shell=True)
             except Exception as exc:
                 self.show_warning_icon()
                 logger.error("Error in shell command: %s", exc)

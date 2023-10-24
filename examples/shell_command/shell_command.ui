@@ -50,6 +50,10 @@
      <property name="commands" stdset="0">
       <stringlist>
        <string>echo &quot;Hello World!&quot;</string>
+       <string>echo &quot;nolan&quot;</string>
+       <string>echo &quot;AAA&quot;; echo &quot;BBB&quot;</string>
+       <string>bash -c 'echo AAA; echo BBB'
+</string>
       </stringlist>
      </property>
     </widget>
