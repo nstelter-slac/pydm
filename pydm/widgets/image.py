@@ -424,6 +424,32 @@ class PyDMImageView(ImageView, PyDMWidget, PyDMColorMap, ReadingOrder):
         self.getImageItem().setImage(img, autoLevels=False, autoDownsample=self.autoDownsample)
 
     @Property(bool)
+    def swapDimOrdering(self):
+        """
+        swapDimOrdering
+
+        Return
+        ------
+        bool
+        """
+        return self.swapDimOrdering
+
+    @swapDimOrdering.setter
+    def swapDimOrdering(self, new_value):
+        """
+        swapDimOrdering
+
+        Parameters
+        ----------
+        new_value: bool
+        """
+        if new_value != self._auto_downsample:
+            self.swapDimOrdering = new_value
+            img = self.getImageItem()
+            shape = img.shape
+            img.reshape(shape[1], shape[0])
+  
+    @Property(bool)
     def autoDownsample(self):
         """
         Return if we should or not apply the
