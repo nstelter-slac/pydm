@@ -5,7 +5,7 @@ Installation
 =========================
 
 There are a few different ways to install PyDM.  The easiest way to install it
-from scratch is probably using the Anaconda system.  If you have an existing
+from scratch is probably using the conda package manager with the Anaconda distribution.  If you have an existing
 python environment, and want to install PyDM for use with that, you can do that
 with pip.
 

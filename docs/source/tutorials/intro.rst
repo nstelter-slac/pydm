@@ -8,12 +8,17 @@ PCASpy Server
 
 A `PCASpy <https://pcaspy.readthedocs.io/en/latest/>`_ server provides PVs for the tutorial files to read/write.
 
+PCASpy can be installed through pip:
+.. code-block:: bash
+
+   pip install pcaspy
+
 The server mimics some PVs of a motor and camera, and is located as follows:
  .. code-block:: bash
 
     examples/testing_ioc/pydm-tutorial-ioc
 
-Installing PCASpy from the documentation above and following the :ref:`pydm installation instructions<Install>` provides all needed prerequisites for this tutorial.
+Installing PCASpy and following the :ref:`pydm installation instructions<Install>` provides all needed prerequisites for this tutorial.
 
 Using the PCASpy Server
 ^^^^^^^^^^^^^^^^^^^^^^^^^
