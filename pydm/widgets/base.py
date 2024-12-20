@@ -131,7 +131,7 @@ def refresh_style(widget):
             logger.debug("Error while refreshing stylesheet. %s ", ex)
 
 
-class PyDMPrimitiveWidget(object):
+class PyDMPrimitiveWidget:
     """
     Primitive class that determines that a given widget is a PyDMWidget.
     All Widget classes from PyDMWidget will be True for
