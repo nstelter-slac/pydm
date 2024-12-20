@@ -1,6 +1,6 @@
 from .base import PyDMWidget, TextFormatter, str_types
 from qtpy.QtWidgets import QLabel, QApplication
-from qtpy.QtCore import Qt, Property, Q_ENUMS
+from qtpy.QtCore import Qt, Property
 from .display_format import DisplayFormat, parse_value_for_display
 from pydm.utilities import is_pydm_app, is_qt_designer
 from pydm import config
@@ -9,7 +9,7 @@ from pydm.widgets.base import only_if_channel_set
 _labelRuleProperties = {"Text": ["value_changed", str]}
 
 
-class PyDMLabel(QLabel, TextFormatter, PyDMWidget, DisplayFormat, new_properties=_labelRuleProperties):
+class PyDMLabel(QLabel, TextFormatter, PyDMWidget, new_properties=_labelRuleProperties):
     """
     A QLabel with support for setting the text via a PyDM Channel, or
     through the PyDM Rules system.
@@ -27,9 +27,6 @@ class PyDMLabel(QLabel, TextFormatter, PyDMWidget, DisplayFormat, new_properties
         The channel to be used by the widget.
     """
 
-    Q_ENUMS(DisplayFormat)
-    DisplayFormat = DisplayFormat
-
     def __init__(self, parent=None, init_channel=None):
         QLabel.__init__(self, parent)
         PyDMWidget.__init__(self, init_channel=init_channel)
@@ -37,7 +34,7 @@ class PyDMLabel(QLabel, TextFormatter, PyDMWidget, DisplayFormat, new_properties
         self.setTextFormat(Qt.PlainText)
         self.setTextInteractionFlags(Qt.NoTextInteraction)
         self.setText("######")
-        self._display_format_type = self.DisplayFormat.Default
+        self._display_format_type = DisplayFormat.Default
         self._string_encoding = "utf_8"
         self._enable_rich_text = False
         if is_pydm_app():

@@ -2,8 +2,9 @@ import os
 import json
 import copy
 import logging
+from enum import Enum
 from qtpy.QtWidgets import QFrame, QApplication, QLabel, QVBoxLayout, QHBoxLayout, QWidget, QStyle, QSizePolicy, QLayout
-from qtpy.QtCore import Qt, QSize, QRect, Property, QPoint, Q_ENUMS
+from qtpy.QtCore import Qt, QSize, QRect, Property, QPoint, QEnum
 from .base import PyDMPrimitiveWidget
 from pydm.utilities import is_qt_designer
 import pydm.data_plugins
@@ -111,7 +112,8 @@ class FlowLayout(QLayout):
             return parent.spacing()
 
 
-class LayoutType(object):
+@QEnum
+class LayoutType(Enum):
     Vertical = 0
     Horizontal = 1
     Flow = 2
@@ -120,7 +122,7 @@ class LayoutType(object):
 layout_class_for_type = (QVBoxLayout, QHBoxLayout, FlowLayout)
 
 
-class PyDMTemplateRepeater(QFrame, PyDMPrimitiveWidget, LayoutType):
+class PyDMTemplateRepeater(QFrame, PyDMPrimitiveWidget):
     """
     PyDMTemplateRepeater takes a .ui file with macro variables as a template, and a JSON
     file (or a list of dictionaries) with a list of values to use to fill in
@@ -139,9 +141,6 @@ class PyDMTemplateRepeater(QFrame, PyDMPrimitiveWidget, LayoutType):
     parent : optional
         The parent of this widget.
     """
-
-    Q_ENUMS(LayoutType)
-    LayoutType = LayoutType
 
     def __init__(self, parent=None):
         pydm.data_plugins.initialize_plugins_if_needed()

@@ -1,9 +1,10 @@
 from qtpy.QtWidgets import QActionGroup
-from qtpy.QtCore import Signal, Slot, Property, QTimer, Q_ENUMS, QThread
+from qtpy.QtCore import Signal, Slot, Property, QTimer, QEnum, QThread
 from pyqtgraph import ImageView, PlotItem
 from pyqtgraph import ColorMap
 from pyqtgraph.graphicsItems.ViewBox.ViewBoxMenu import ViewBoxMenu
 import numpy as np
+from enum import Enum
 import logging
 from .channel import PyDMChannel
 from .colormaps import cmaps, cmap_names, PyDMColorMap
@@ -12,14 +13,16 @@ from .base import PyDMWidget
 logger = logging.getLogger(__name__)
 
 
-class ReadingOrder(object):
+@QEnum
+class ReadingOrder(Enum):
     """Class to build ReadingOrder ENUM property."""
 
     Fortranlike = 0
     Clike = 1
 
 
-class DimensionOrder(object):
+@QEnum
+class DimensionOrder(Enum):
     """
     Class to build DimensionOrder ENUM property.
 
@@ -98,7 +101,7 @@ class ImageUpdateThread(QThread):
         self.image_view.needs_redraw = False
 
 
-class PyDMImageView(ImageView, PyDMWidget, PyDMColorMap, ReadingOrder, DimensionOrder):
+class PyDMImageView(ImageView, PyDMWidget, PyDMColorMap):
     """
     A PyQtGraph ImageView with support for Channels and more from PyDM.
 
@@ -122,13 +125,6 @@ class PyDMImageView(ImageView, PyDMWidget, PyDMColorMap, ReadingOrder, Dimension
         The channel to be used by the widget to receive the image width
         information
     """
-
-    ReadingOrder = ReadingOrder
-    DimensionOrder = DimensionOrder
-
-    Q_ENUMS(ReadingOrder)
-    Q_ENUMS(DimensionOrder)
-    Q_ENUMS(PyDMColorMap)
 
     color_maps = cmaps
 

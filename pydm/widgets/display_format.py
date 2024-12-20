@@ -1,14 +1,18 @@
 import math
 import numpy as np
 from typing import Any
+from enum import Enum
 
 import logging
 import warnings
 
+from qtpy.QtCore import QEnum
+
 logger = logging.getLogger(__name__)
 
 
-class DisplayFormat(object):
+@QEnum
+class DisplayFormat(Enum):
     """Display format for showing data in a PyDM widget."""
 
     #: The default display format.
