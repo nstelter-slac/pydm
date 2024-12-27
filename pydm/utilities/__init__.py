@@ -39,6 +39,11 @@ __all__ = [
 logger = logging.getLogger(__name__)
 
 
+# just define this ourselves since while pyqt has the macro, pyside does not.
+# set the macro's value according to the docs: https://doc.qt.io/qt-6/qwidget.html#QWIDGETSIZE_MAX
+QWIDGETSIZE_MAX = 16777215
+
+
 def is_ssh_session():
     """
     Whether or not this is a SSH session.

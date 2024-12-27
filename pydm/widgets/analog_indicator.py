@@ -2,7 +2,7 @@ from .base import PyDMWidget
 from qtpy.QtGui import QColor, QPolygon, QPainter, QFontMetrics
 from qtpy.QtWidgets import QFrame, QSizePolicy
 from qtpy.QtCore import Qt, QPoint, Property, QSize
-from qtpy.QtWidgets import QWIDGETSIZE_MAX
+from ..utilities import QWIDGETSIZE_MAX
 from .scale import QScale, PyDMScaleIndicator
 
 
