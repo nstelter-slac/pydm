@@ -1,9 +1,13 @@
 import logging
 import six
+import functools
+import weakref
+
 from qtpy.QtWidgets import QComboBox
 from qtpy.QtCore import Slot, Qt
-from .base import PyDMWritableWidget
+from .base import PyDMWritableWidget, widget_destroyed
 from .. import data_plugins
+from ..utilities import is_qt_designer
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +43,14 @@ class PyDMEnumComboBox(QComboBox, PyDMWritableWidget):
         self.activated[int].connect(self.internal_combo_box_activated_int)
         self.setContextMenuPolicy(Qt.DefaultContextMenu)
         self.contextMenuEvent = self.open_context_menu
+
+        if not is_qt_designer():
+            # We should  install the Event Filter only if we are running
+            # and not at the Designer
+            self.installEventFilter(self)
+            self.check_enable_state()
+
+        self.destroyed.connect(functools.partial(widget_destroyed, self.channels, weakref.ref(self)))
 
         # Because of the way PyQt5 UI parser enumerates combobox items (first adding an item with an empty title
         # and then resetting that title to the actual text), we can't distinguish it from the regular title change.

@@ -76,7 +76,7 @@ class PyDMEnumButton(QWidget, PyDMWritableWidget):
         self._btn_group.setExclusive(True)
         try:
             self._btn_group.buttonClicked[int].connect(self.handle_button_clicked)  # pyqt5
-        except TypeError:
+        except (TypeError, IndexError):
             self._btn_group.buttonClicked.connect(self.handle_button_clicked)  # pyside6
         self._widget_type = WidgetType.PushButton
         self._orientation = Qt.Vertical
