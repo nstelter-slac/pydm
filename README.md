@@ -18,9 +18,9 @@
   <strong>« Explore PyDM <a href="https://slaclab.github.io/pydm/">docs</a> and <a href="https://slaclab.github.io/pydm/tutorials/index.html">tutorials</a> »</strong>
   <br>
   <br>
-  <a href="https://github.com/slaclab/pydm/issues/new?template=bug-report.md">Report bug</a>
+  <a href="https://github.com/slaclab/pydm/issues/new?template=bug-report.yml">Report bug</a>
   ·
-  <a href="https://github.com/slaclab/pydm/issues/new?template=feature-request.md&labels=request">Request feature</a>
+  <a href="https://github.com/slaclab/pydm/issues/new?template=feature-request.yml">Request feature</a>
   ·
   <a href="https://github.com/slaclab/pydm/blob/master/CONTRIBUTING.rst">How to Contribute</a>
   ·
@@ -29,12 +29,7 @@
 
 <br>
 
-# Python Qt Wrapper
-PyDM project uses the [qtpy](https://github.com/spyder-ide/qtpy)
-as the abstraction layer for the Qt Python wrappers (PyQt5/PyQt4/PySide2/PySide).
-**All tests are performed with PyQt5**.
-
-# Prerequisites
+# Requirements
 * Python 3.9+
 * Qt 5.6 or higher
 * qtpy
@@ -48,73 +43,26 @@ as the abstraction layer for the Qt Python wrappers (PyQt5/PyQt4/PySide2/PySide)
 Python package requirements are listed in the requirements.txt file, which can
 be used to install all requirements from pip: 'pip install -r requirements.txt'
 
-# Running the Tests
-In order to run the tests you will need to install some dependencies that are
-not part of the runtime dependencies of PyDM.
+PyDM project uses the [qtpy](https://github.com/spyder-ide/qtpy)
+as the abstraction layer for the Qt Python wrappers (PyQt5/PyQt4/PySide2/PySide).
+**PyQt5 is currently the only supported Qt Python wrapper**.
 
-Assuming that you have cloned this repository do:
+# Installation
 
-```bash
-pip install -r dev-requirements.txt
+See the [installation docs](https://slaclab.github.io/pydm/installation.html#installing-pydm-and-prerequisites-with-conda) for instructions on how to setup an environment and install the latest PyDM build. Follow these setup instructions if you just wish to run the prebuilt PyDM executable.
 
-python run_tests.py
-```
+# Developers
 
-If you want to see the coverage report do:
-```bash
-python run_tests.py --show-cov
-```
+Developers should check out the [contributing docs](https://github.com/slaclab/pydm/blob/master/CONTRIBUTING.rst) for steps on getting set up for local PyDM development. Follow these setup instructions if you wish to modify and run the PyDM source code.
 
-# Running the Examples
-There are various examples of some of the features of the display manager.
-To launch a particular display run 'python scripts/pydm <filename>'.
+# PyDM Widgets in Designer
+PyDM widgets are written in Python, and are loaded into QtDesigner via the PyQt Designer Plugin.
 
-There is a 'home' display in the examples directory with buttons to launch all
-the examples:
-```python
-pydm examples/home.ui
-```
-
-# Building the Documentation Locally
-In order to build the documentation you will need to install some dependencies
-that are not part of the runtime dependencies of PyDM.
-
-Assuming that you have cloned this repository do:
-
-```bash
-pip install -r docs-requirements.txt
-
-cd docs
-make html
-```
-
-This will generate the HTML documentation for PyDM at the `<>/docs/build/html`
-folder. Look for the `index.html` file and open it with your browser.
-
-# Online Documentation
-
-Documentation is available at http://slaclab.github.io/pydm/.  Documentation is
-somewhat sparse right now, unfortunately.
-
-# Widget Designer Plugins
-pydm widgets are written in Python, and are loaded into Qt Designer via the PyQt
-Designer Plugin.
-If you want to use the pydm widgets in Qt Designer, add the pydm directory
-(which holds designer_plugin.py) to your PYQTDESIGNERPATH environment variable.
+If you want to use the PyDM widgets in QtDesigner, add the /pydm directory
+(which holds pydm_designer_plugin.py) to your PYQTDESIGNERPATH environment variable.
 Eventually, this will happen automatically in some kind of setup script.
 
-# Easy Installing PyDM
-## Using the source code
-```sh
-git clone https://github.com/slaclab/pydm.git
-cd pydm
-pip install .[all]
-```
+When Conda is used to install PyDM into a Linux Environment, it will automatically
+define the PYQTDESIGNERPATH environment variable to point to the /etc/pydm dir containing pydm_designer_plugin.py.
 
-## Using Anaconda
-
-When using Anaconda to install PyDM at a Linux Environment it will automatically
-define the PYQTDESIGNERPATH environment variable pointing to /etc/pydm which
-will have a file named designer_plugin.py which will make all the PyDM widgets
-available to the Qt Designer. For more information please see
-our <a href="https://slaclab.github.io/pydm/installation.html">installation guide</a>.
+For more information please see our <a href="https://slaclab.github.io/pydm/installation.html#designer-plugin-path">installation guide</a>.

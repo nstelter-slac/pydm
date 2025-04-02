@@ -61,36 +61,39 @@ Ready to contribute? Here's how to set up `pydm` for local development.
 
     $ git clone git@github.com:your_username_here/pydm.git
 
-3. Install your local copy into a new conda environment. Assuming you have conda installed, this is how you set up your fork for local development::
+3. Install your local copy into a new conda environment. Assuming you have conda installed (we recommend https://conda-forge.org/download/), this is how you set up your fork for local development::
 
-    $ conda create -n pydm-environment python=3.8 pyqt=5.12.3 pip numpy scipy six psutil pyqtgraph -c conda-forge
+    $ conda create -n pydm-environment python=3.10 pyqt=5.12.3 pip numpy scipy six psutil pyqtgraph -c conda-forge
     $ cd pydm/
-    $ pip install -e .
+    $ pip install .[all]
 
-4. Install additional packages only needed for development and building the docs::
+4. Now that PyDM is installed, you can one any of the various examples showcasing PyDM's features. To launch a screen linking all the examples by running::
+    $ pydm examples/home.ui
 
-    $ pip install -r dev-requirements.txt
-    $ pip install -r docs-requirements.txt
+   And you can launch an individual example screen by running::
+    $ pydm examples/../<screen_file_name>.ui|.py
 
-5. Create a branch for local development::
+4. Create a branch for local development::
 
     $ git checkout -b name-of-your-bugfix-or-feature
 
    Now you can make your changes locally.
 
-6. Install and enable ``pre-commit`` for this repository::
+5. Install and enable ``pre-commit`` for this repository::
 
     $ pip install pre-commit
     $ pre-commit install
 
-7. Add new tests for any additional functionality or bugs you may have discovered.  And of course, be sure that all previous tests still pass by running::
+6. Add new tests for any additional functionality or bugs you may have discovered.  And of course, be sure that all previous tests still pass by running::
 
     $ python run_tests.py
 
-8. Add documentation for any new features and algorithms into the .rst files of the /docs directory. Create a local build of the docs by running::
+7. Add documentation for any new features and algorithms into the .rst files of the /docs directory. Create a local build of the docs by running::
 
     $ cd docs
     $ make html
+
+    This will generate the HTML documentation for PyDM at the ``/docs/build/html`` folder. Look for the ``index.html`` file and open it with your browser.
 
 8. Commit your changes and push your branch to GitHub::
 

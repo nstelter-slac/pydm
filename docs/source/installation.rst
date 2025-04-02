@@ -5,7 +5,7 @@ Installation
 =========================
 
 There are a few different ways to install PyDM.  The easiest way to install it
-from scratch is probably using the Conda system. We recommended using Conda from `Miniforge <https://conda-forge.org/download/>`. If you have an existing
+from scratch is probably using the Conda system. We recommended using Conda from `Miniforge <https://conda-forge.org/download/>`_. If you have an existing
 python environment, and want to install PyDM for use with that, you can do that
 with pip.
 
@@ -30,6 +30,9 @@ environment for PyDM::
   $ source activate pydm-environment
 
 Once you've installed and activated the environment, you should be able to run 'pydm' to launch PyDM, or run 'designer' to launch Qt Designer.  If you are on Windows, run these commands from the Anaconda Prompt.
+
+If you wish to further test that your PyDM install is working 100% correctly, the tests are actually packaged into the executable and can be ran as follows::
+  $ pytest --pyargs pydm
 
 On MacOS, launching Qt Designer is a little more annoying:
 First, use 'which pydm' to figure out where the conda environment's 'bin' directory is::

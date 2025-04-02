@@ -7,10 +7,10 @@ more complex applications.
 ### Bug reports & Feature request
 
 If you spot a problem with PyDM, please let us know by following the template in
-here: [Report a bug](https://github.com/slaclab/pydm/issues/new?template=bug-report.md).
+here: [Report a bug](https://github.com/slaclab/pydm/issues/new?template=bug-report.yml).
 
 Ideas or suggestions for enhancements are more than welcome. Please use the following
-template in here: [Request feature](https://github.com/slaclab/pydm/issues/new?template=feature-request.md).
+template in here: [Request feature](https://github.com/slaclab/pydm/issues/new?template=feature-request.yml).
 
 ### Contact us
 
@@ -22,4 +22,4 @@ You can choose between the channels open for communication the one that best fit
 - Stanford & SLAC [Slack channel](<https://slac.slack.com/messages/C6B8GRCPQ>) (Limited for users with a Stanford Account)
 - PyDM [Mailing List](https://listserv.slac.stanford.edu/cgi-bin/wa?SUBED1=PYDM-USERS) (Limited for SLAC users for now)
 
-or you can [file a bug](https://github.com/slaclab/pydm/issues/new?template=bug-report.md) and let us know where our documentation could be improved.
+or you can [file a bug](https://github.com/slaclab/pydm/issues/new?template=bug-report.yml) and let us know where our documentation could be improved.
