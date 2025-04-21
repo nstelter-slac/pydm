@@ -197,7 +197,7 @@ class PyDMImageView(ImageView, PyDMWidget):
         self.cm_max = 255.0
 
         plot_item = PlotItem()
-        ImageView.__init__(self, parent, view=plot_item)
+        ImageView.__init__(self, parent, view=self.plot_item)
         PyDMWidget.__init__(self)
         self._channels = [None, None]
         self.thread = None
