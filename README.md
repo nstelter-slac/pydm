@@ -1,5 +1,5 @@
-[![Build Status: PySide6](https://github.com/slaclab/pydm/actions/workflows/run-tests-pyqt5.yml/badge.svg?branch=master)](https://github.com/slaclab/pydm/actions/workflows/run-tests-pyqt5.yml)
-[![Build Status: PyQt5](https://github.com/slaclab/pydm/actions/workflows/run-tests-pyside6.yml/badge.svg?branch=master)](https://github.com/slaclab/pydm/actions/workflows/run-tests-pyside6.yml)
+[![Build Status: PySide6](https://github.com/slaclab/pydm/actions/workflows/run-tests-pyqt5.yml/badge.svg?branch=master)](https://github.com/slaclab/pydm/actions/workflows/run-tests-pyqt5.yml?query=branch%3Amaster)
+[![Build Status: PyQt5](https://github.com/slaclab/pydm/actions/workflows/run-tests-pyside6.yml/badge.svg?branch=master)](https://github.com/slaclab/pydm/actions/workflows/run-tests-pyside6.yml?query=branch%3Amaster)
 
 ![PyDM: Python Display Manager](pydm_banner_full.png)
 
@@ -64,7 +64,7 @@ instructions found in the docs: https://slaclab.github.io/pydm/installation.html
 # Running the Tests
 In order to run the tests you will need to install some dependencies that are
 not part of the runtime dependencies of PyDM.
-
+[![Build Status: PyQt5](https://github.com/slaclab/pydm/actions/workflows/run-tests-pyqt5.yml/badge.svg?branch=main)](https://github.com/slaclab/pydm/actions/workflows/run-tests-pyqt5.yml?query=branch%3Amain
 Assuming that you have cloned this repository do:
 
 ```bash
@@ -77,7 +77,7 @@ If you want to see the coverage report do:
 ```bash
 python run_tests.py --show-cov
 ```
-
+[![Build Status: PyQt5](https://github.com/slaclab/pydm/actions/workflows/run-tests-pyqt5.yml/badge.svg?branch=main)](https://github.com/slaclab/pydm/actions/workflows/run-tests-pyqt5.yml?query=branch%3Amain
 # Running the Examples
 There are various examples of some of the features of the display manager.
 To launch a particular display run 'python scripts/pydm <filename>'.
