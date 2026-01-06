@@ -44,16 +44,36 @@ body:
         - macOS
     validations:
       required: true
-      
+
   - type: input
     id: os-specific-version
     attributes:
-      label: "OS Version Details."
+      label: "OS Version Details"
       description: "Specify your OS version"
       placeholder: "Specify your OS version (e.g., Ubuntu 22.04, Windows 10, macOS 13.3)."
     validations:
       required: false
-  
+
+  - type: input
+    id: pydm-version
+    attributes:
+      label: "PyDM Version"
+      description: "Specify your PyDM version"
+      placeholder: "Specify your PyDM version (check with 'pydm --v' or `File > About` in PyDM top-bar menu))."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: qt-wrapper-version
+    attributes:
+      label: "Qt Python Wrapper"
+      description: "Select which Qt Python Wrapper you are running PyDM with (check `File > About` in PyDM, will be either PyQt5 or PySide6)."
+      options:
+        - PyQt5
+        - PySide6
+    validations:
+      required: true
+
   - type: input
     id: python-version
     attributes:
@@ -64,13 +84,13 @@ body:
       required: true
 
   - type: textarea
-    id: package-versions
+    id: additional-package-versions
     attributes:
-      label: "Packages Version"
-      description: "Provide package versions (Check `File > About` in PyDM). Can upload a screenshot if you wish."
-      placeholder: "Example: PyDM v1.25.2, NumPy v2.2.2, PyQt v5.12.3, Qt v5.12.9, PyQtGraph v.0.12.4"
+      label: "Additional Package Versions"
+      description: "Provide versions of other packages PyDM is using that might be relevant to the issue (check `File > About` in PyDM)."
+      placeholder: "Example: NumPy v2.2.2 PyQtGraph v.0.12.4"
     validations:
-      required: true
+      required: false
 
   - type: textarea
     attributes:
