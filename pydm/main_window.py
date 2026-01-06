@@ -535,6 +535,8 @@ class PyDMMainWindow(QMainWindow):
         a.show()
 
     def resizeForNewDisplayWidget(self):
+        if not isinstance(self._new_widget_size, QSize):
+            return
         if not self.isFullScreen():
             self.resize(self._new_widget_size)
 

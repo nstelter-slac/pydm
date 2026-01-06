@@ -25,9 +25,9 @@ class MacroWindow(QWidget):
 
         self.text_box = QPlainTextEdit()
         self.text_box.setReadOnly(True)
-        self.font = QFont()
-        self.font.setPointSize(16)
-        self.text_box.setFont(self.font)
+        font = QFont()
+        font.setPointSize(16)
+        self.text_box.setFont(font)
         self.text_box.setPlainText("Macros:")
 
         self.macros = {}
